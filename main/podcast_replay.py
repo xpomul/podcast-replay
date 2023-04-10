@@ -66,6 +66,12 @@ def transform_podcast(feed_str: str, podcast: dict, now: datetime=datetime.now()
     # return the modified feed as XML
     return feed_root
 
+
+@app.head('/podcast/{name}')
+async def service_head(name: str):
+    return Response(media_type="application/xml")
+
+
 @app.get('/podcast/{name}')
 async def service(name: str):
     """ Main entry point of the service """
