@@ -1,0 +1,14 @@
+{
+	"DasStarkeStueck" : {
+		"url": "https://feeds.br.de/das-starke-stueck-musiker-erklaeren-meisterwerke/feed.xml",
+		"date": "2023-04-01",
+		"rate": 2,
+		"skip": 10
+	},
+	"Meisterwerke" : {
+		"url": "https://www1.wdr.de/mediathek/audio/wdr3/meisterstuecke/meisterstuecke-podcast-100.podcast",
+		"date": "2023-04-02",
+		"rate": 2,
+		"skip": 0
+	}	
+}
