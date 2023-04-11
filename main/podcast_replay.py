@@ -1,4 +1,6 @@
 import os
+import time
+from email.utils import parsedate
 from datetime import datetime, timedelta
 import json
 from fastapi import FastAPI, HTTPException, Response
@@ -24,6 +26,12 @@ def read_config() -> dict:
         return json.load(file)
 
 
+def get_date(item: ET.Element) -> datetime:
+    date_element = item.find('pubDate')
+    timestamp = parsedate(date_element.text)
+    return datetime.fromtimestamp(time.mktime(timestamp))
+
+
 def transform_podcast(feed_str: str, podcast: dict, now: datetime=datetime.now()) -> ET.Element:
     ET.register_namespace('atom',"http://www.w3.org/2005/Atom")
     ET.register_namespace('content',"http://purl.org/rss/1.0/modules/content/")
@@ -44,6 +52,9 @@ def transform_podcast(feed_str: str, podcast: dict, now: datetime=datetime.now()
     channel_element = feed_root.find('channel')
 
     episodes = channel_element.findall('item')
+    # sort episodes by date
+    episodes.sort(key=get_date)
+
     skipped_episodes = episodes[:skip]
     for episode in skipped_episodes:
         parent_map[episode].remove(episode)
