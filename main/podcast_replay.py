@@ -32,7 +32,9 @@ def get_date(item: ET.Element) -> datetime:
     return datetime.fromtimestamp(time.mktime(timestamp))
 
 
-def transform_podcast(feed_str: str, podcast: dict, now: datetime=datetime.now()) -> ET.Element:
+def transform_podcast(feed_str: str, podcast: dict, now: datetime=None) -> ET.Element:
+    now = now or datetime.now()
+
     ET.register_namespace('atom',"http://www.w3.org/2005/Atom")
     ET.register_namespace('content',"http://purl.org/rss/1.0/modules/content/")
     ET.register_namespace('itunes',"http://www.itunes.com/dtds/podcast-1.0.dtd")
